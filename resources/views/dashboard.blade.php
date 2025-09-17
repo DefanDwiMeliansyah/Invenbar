@@ -1,17 +1,30 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="h5 mb-0">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
+<x-main-layout :title-page="('Dashboard')">
+    <h3 class="mb-4 fw-light">
+        Selamat Datang, <strong>{{ auth()->user()->name }}</strong>!
+    </h3>
 
-    <div class="row justify-content-center my-5">
-        <div class="col">
-            <div class="card shadow-sm">
-                <div class="card-body">
-                    {{ __("You're logged in!") }}
+    @include('dashboard-partials.list-kartu-total')
+
+    <div class="row">
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6>Ringkasan Kondisi Barang</h6>
+                </div>
+                @include('dashboard-partials.list-kondisi-barang')
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header py-3">
+                    <h6>5 Barang Terakhir Ditambahkan</h6>
+                </div>
+
+                <div class="card-body table-responsive">
+                    @include('dashboard-partials.list-barang-terbaru')
                 </div>
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-main-layout>

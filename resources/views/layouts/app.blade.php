@@ -8,9 +8,9 @@
 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Css -->
-    <link href="{{ asset('bootsrtap/font/bootstrap-icons.min.css') }}" rel="stylesheet">
-    <link href="{{ asset('bootsrtap/css/bootstrap.min.css') }}" rel="stylesheet">
+   <!-- Css -->
+<link href="{{ asset('bootstrap/font/bootstrap-icons.min.css') }}" rel="stylesheet">
+<link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
