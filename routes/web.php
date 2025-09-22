@@ -24,7 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('kategori', KategoriController::class);
     Route::resource('lokasi', LokasiController::class);
+    Route::get('/barang/laporan', [BarangController::class, 'cetaklaporan'])->name('barang.laporan');
     Route::resource('barang', BarangController::class);
+
+    // Route Barang Laporan
 });
 
 require __DIR__ . '/auth.php';
