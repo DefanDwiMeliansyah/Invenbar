@@ -1,15 +1,15 @@
-<x-main-layout title-page="{{ __('User') }}">
+<x-main-layout title-page="{{ __('Kategori') }}">
     <div class="card">
         <div class="card-body">
-            @include('user.partials.toolbar')
+            @include('kategori.partials.toolbar')
             
             <x-notif-alert class="mt-4" />
         </div>
         
-        @include('user.partials.list-user')
+        @include('kategori.partials.list-kategori')
         
         <div class="card-body">
-            {{ $users->links() }}
+            {{ $kategoris->links() }}
         </div>
     </div>
 </x-main-layout>
