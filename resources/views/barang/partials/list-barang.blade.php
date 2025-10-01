@@ -21,7 +21,16 @@
             <td>{{ $barang->lokasi->nama_lokasi }}</td>
             <td>{{ $barang->jumlah }} {{ $barang->satuan }}</td>
             <td>
-                <span class="badge bg-info">{{ $barang->kondisi }}</span>
+                @php
+                    $badgeClass = 'bg-success';
+                    if ($barang->kondisi == 'Rusak Ringan') {
+                        $badgeClass = 'bg-warning text-dark';
+                    }
+                    if ($barang->kondisi == 'Rusak Berat') {
+                        $badgeClass = 'bg-danger';
+                    }
+                @endphp
+                <span class="badge {{ $badgeClass }}">{{ $barang->kondisi }}</span>
             </td>
             <td class="text-end">
                 @can('manage barang')

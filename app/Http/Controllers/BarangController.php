@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 
-class BarangController extends Controller
+class BarangController extends Controller implements HasMiddleware
 {
     /**
      * Display a listing of the resource.
@@ -97,7 +97,7 @@ class BarangController extends Controller
     public function update(Request $request, Barang $barang)
     {
         $validated = $request->validate([
-            'kode_barang' => 'required|string|max:50|unique:barangs,kode_barang',
+            'kode_barang' => 'required|string|max:50|unique:barangs,kode_barang,' . $barang->id,
             'nama_barang' => 'required|string|max:150',
             'kategori_id' => 'required|exists:kategoris,id',
             'lokasi_id' => 'required|exists:lokasis,id',

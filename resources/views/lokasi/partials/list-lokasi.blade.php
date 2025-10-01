@@ -3,6 +3,7 @@
         <tr>
             <th>#</th>
             <th>Nama Lokasi</th>
+            <th class="text-center">Jumlah Barang</th>
             @can('manage lokasi')
                 <th>&nbsp;</th>
             @endcan
@@ -13,6 +14,7 @@
         <tr>
             <td>{{ $lokasis->firstItem() + $index }}</td>
             <td>{{ $lokasi->nama_lokasi }}</td>
+            <td class="text-center">{{ $lokasi->barang_count }}</td>
             
             @can('manage lokasi')
                 <td>

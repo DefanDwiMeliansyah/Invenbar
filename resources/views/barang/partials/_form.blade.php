@@ -3,10 +3,10 @@
     <div class="col-md-6">
         <x-form-input label="Kode Barang" name="kode_barang" :value="$barang->kode_barang" />
     </div>
-</div>
 
-<div class="col-md-6">
-    <x-form-input label="Nama Barang" name="nama_barang" :value="$barang->nama_barang" />
+    <div class="col-md-6">
+        <x-form-input label="Nama Barang" name="nama_barang" :value="$barang->nama_barang" />
+    </div>
 </div>
 
 <div class="row mb-3">
@@ -14,21 +14,21 @@
         <x-form-select label="Kategori" name="kategori_id" :value="$barang->kategori_id"
             :option-data="$kategori" option-label="nama_kategori" option-value="id" />
     </div>
-</div>
 
-<div class="col-md-6">
-    <x-form-select label="Lokasi" name="lokasi_id" :value="$barang->lokasi_id"
-        :option-data="$lokasi" option-label="nama_lokasi" option-value="id" />
+    <div class="col-md-6">
+        <x-form-select label="Lokasi" name="lokasi_id" :value="$barang->lokasi_id"
+            :option-data="$lokasi" option-label="nama_lokasi" option-value="id" />
+    </div>
 </div>
 
 <div class="row mb-3">
     <div class="col-md-6">
         <x-form-input label="Jumlah" name="jumlah" :value="$barang->jumlah" type="number" />
     </div>
-</div>
 
-<div class="col-md-6">
-    <x-form-input label="Satuan" name="satuan" :value="$barang->satuan" />
+    <div class="col-md-6">
+        <x-form-input label="Satuan" name="satuan" :value="$barang->satuan" />
+    </div>
 </div>
 
 <div class="row mb-3">
@@ -41,14 +41,14 @@
         <x-form-select label="Kondisi" name="kondisi" :value="$barang->kondisi" :option-data="$kondisi"
             option-label="kondisi" option-value="kondisi" />
     </div>
-</div>
 
-<div class="col-md-6">
-    @php
-    $tanggal = $barang->tanggal_pengadaan ?
-    date('Y-m-d', strtotime($barang->tanggal_pengadaan)) : null;
-    @endphp
-    <x-form-input label="Tanggal Pengadaan" name="tanggal_pengadaan" type="date" :value="$tanggal" />
+    <div class="col-md-6">
+        @php
+        $tanggal = $barang->tanggal_pengadaan ?
+        date('Y-m-d', strtotime($barang->tanggal_pengadaan)) : null;
+        @endphp
+        <x-form-input label="Tanggal Pengadaan" name="tanggal_pengadaan" type="date" :value="$tanggal" />
+    </div>
 </div>
 
 <div class="mb-3">

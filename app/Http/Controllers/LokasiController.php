@@ -3,30 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lokasi;
+use App\Models\Barang;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
-
 
 class LokasiController extends Controller
 {
     public static function middleware(): array
     {
         return [
-            new middleware('permission:view lokasi', only: ['index', 'show']),
-            new middleware('permission:manage lokasi', except: ['index', 'show'])
+            new Middleware('permission:view lokasi', only: ['index', 'show']),
+            new Middleware('permission:manage lokasi', except: ['index', 'show'])
         ];
     }
+
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $search = $request->search ? $request->search : null;
+        $search = $request->search ?? null;
 
-        $lokasis = Lokasi::when($search, function ($query, $search) {
-            $query->where('nama_lokasi', 'like', '%' . $search . '%');
-        })->latest()->paginate()->withQueryString();
+        // Ambil semua lokasi + jumlah barangnya + fitur pencarian + pagination
+        $lokasis = Lokasi::withCount('barang') // hitung barang otomatis
+            ->when($search, function ($query, $search) {
+                $query->where('nama_lokasi', 'like', '%' . $search . '%');
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString(); // supaya parameter search tetap
 
         return view('lokasi.index', compact('lokasis'));
     }
@@ -50,10 +56,14 @@ class LokasiController extends Controller
             'nama_lokasi' => 'required|string|max:100|unique:lokasis,nama_lokasi',
         ]);
 
-        Lokasi::create($validated);
+        $lokasi = Lokasi::create($validated);
+
+        // Jika mau hitung jumlah barang di lokasi baru (biasanya 0)
+        $jumlahBarang = Barang::where('lokasi_id', $lokasi->id)->count();
 
         return redirect()->route('lokasi.index')
-        ->with('success', 'Lokasi baru berhasil ditambahkan.');
+            ->with('success', 'Lokasi baru berhasil ditambahkan.')
+            ->with('jumlahBarang', $jumlahBarang);
     }
 
     /**
@@ -93,11 +103,11 @@ class LokasiController extends Controller
     {
         if ($lokasi->barang()->exists()) {
             return redirect()->route('lokasi.index')
-                           ->with('error', 'Lokasi tidak dapat dihapus karena masih memiliki barang terkait.');
+                ->with('error', 'Lokasi tidak dapat dihapus karena masih memiliki barang terkait.');
         }
-        
+
         $lokasi->delete();
-        
+
         return redirect()->route('lokasi.index')->with('success', 'Lokasi berhasil dihapus.');
     }
 }
