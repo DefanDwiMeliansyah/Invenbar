@@ -1,7 +1,7 @@
 <style>
 body {
     font-family: 'Helvetica', 'Arial', sans-serif;
-    font-size: 12px;
+    font-size: 11px;
 }
 
 .header {
@@ -32,11 +32,52 @@ td {
 
 th,
 td {
-    padding: 8px;
+    padding: 6px 8px;
     text-align: left;
 }
 
 th {
-    background-color: #f2f2f2;
+    background-color: #d4d4d4;
+    font-weight: bold;
+    text-align: center;
+}
+
+td:nth-child(1) {
+    text-align: center;
+    width: 4%;
+}
+
+td:nth-child(2) {
+    width: 12%;
+}
+
+td:nth-child(3) {
+    width: 18%;
+}
+
+td:nth-child(4),
+td:nth-child(5) {
+    width: 12%;
+}
+
+td:nth-child(6) {
+    text-align: center;
+    width: 8%;
+}
+
+td:nth-child(7),
+td:nth-child(8) {
+    text-align: center;
+    width: 10%;
+}
+
+td:nth-child(9) {
+    text-align: center;
+    width: 10%;
+}
+
+/* Style untuk baris grup */
+tr[style*="background-color: #e9ecef"] td {
+    padding: 8px;
 }
 </style>

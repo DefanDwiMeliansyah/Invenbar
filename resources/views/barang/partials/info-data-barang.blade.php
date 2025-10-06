@@ -33,6 +33,12 @@
             </td>
         </tr>
         <tr>
+            <th>Status</th>
+            <td>
+                <span class="badge {{ $barang->getStatusBadgeClass() }}">{{ $barang->status }}</span>
+            </td>
+        </tr>
+        <tr>
             <th>Tanggal Pengadaan</th>
             <td>{{ \Carbon\Carbon::parse($barang->tanggal_pengadaan)->translatedFormat('d F Y') }}</td>
         </tr>
