@@ -4,6 +4,7 @@
         <th>Kode Barang</th>
         <th>Nama Barang</th>
         <th>Kategori</th>
+        <th>Sumber</th>
         <th>Lokasi</th>
         <th>Jumlah</th>
         <th>Kondisi</th>
@@ -39,7 +40,7 @@
                     {{-- Baris Header Grup Per Unit --}}
                     <tr style="background-color: #e9ecef; font-weight: bold;">
                         <td rowspan="{{ count($relatedUnits) + 1 }}" style="vertical-align: top;">{{ $no++ }}</td>
-                        <td colspan="8">
+                        <td colspan="9">
                             <strong>{{ $barang->nama_barang }}</strong> 
                             ({{ $barang->kategori->nama_kategori }} - {{ $barang->lokasi->nama_lokasi }})
                             - Total: {{ count($relatedUnits) }} {{ $barang->satuan }}
@@ -52,6 +53,7 @@
                         <td style="padding-left: 15px;">{{ $unit->kode_barang }}</td>
                         <td>{{ $unit->nama_barang }}</td>
                         <td>{{ $unit->kategori->nama_kategori }}</td>
+                        <td>{{ $barang->sumber }}</td>
                         <td>{{ $unit->lokasi->nama_lokasi }}</td>
                         <td>{{ $unit->jumlah }} {{ $unit->satuan }}</td>
                         <td>{{ $unit->kondisi }}</td>
@@ -66,6 +68,7 @@
                         <td>{{ $barang->kode_barang }}</td>
                         <td>{{ $barang->nama_barang }}</td>
                         <td>{{ $barang->kategori->nama_kategori }}</td>
+                        <td>{{ $barang->sumber }}</td>
                         <td>{{ $barang->lokasi->nama_lokasi }}</td>
                         <td>{{ $barang->jumlah }} {{ $barang->satuan }}</td>
                         <td>{{ $barang->kondisi }}</td>

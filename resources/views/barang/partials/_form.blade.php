@@ -5,27 +5,26 @@
             @php
             $modeOptions = [['mode' => 'Masal'], ['mode' => 'Per Unit']];
             @endphp
-            
+
             <label class="form-label">Mode Input</label>
-            <select 
-                name="mode_input" 
+            <select
+                name="mode_input"
                 class="form-select @error('mode_input') is-invalid @enderror"
                 x-model="modeInput"
-                @if(isset($update)) disabled @endif
-            >
+                @if(isset($update)) disabled @endif>
                 <option value="">Pilih Mode Input</option>
                 @foreach($modeOptions as $option)
-                    <option value="{{ $option['mode'] }}" 
-                        {{ old('mode_input', $barang->mode_input ?? '') == $option['mode'] ? 'selected' : '' }}>
-                        {{ $option['mode'] }}
-                    </option>
+                <option value="{{ $option['mode'] }}"
+                    {{ old('mode_input', $barang->mode_input ?? '') == $option['mode'] ? 'selected' : '' }}>
+                    {{ $option['mode'] }}
+                </option>
                 @endforeach
             </select>
             @error('mode_input')
-                <div class="invalid-feedback">{{ $message }}</div>
+            <div class="invalid-feedback">{{ $message }}</div>
             @enderror
             @if(isset($update))
-                <input type="hidden" name="mode_input" value="{{ $barang->mode_input }}">
+            <input type="hidden" name="mode_input" value="{{ $barang->mode_input }}">
             @endif
         </div>
 
@@ -38,10 +37,24 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-md-12">
+        <div class="col-md-6">
             <x-form-input label="Nama Barang" name="nama_barang" :value="$barang->nama_barang" />
         </div>
+        <div class="col-md-6">
+            @php
+            $sumber = [
+            ['sumber' => 'Pemerintah'],
+            ['sumber' => 'Swadaya'],
+            ['sumber' => 'Donatur'],
+            ['sumber' => 'Mitra']
+            ];
+            @endphp
+
+            <x-form-select label="Sumber" name="sumber" :value="$barang->sumber" :option-data="$sumber"
+                option-label="sumber" option-value="sumber" />
+        </div>
     </div>
+    
 
     <div class="row mb-3">
         <div class="col-md-6">
@@ -85,13 +98,13 @@
         <div class="col-md-6">
             @php
             $statusOptions = [
-                ['status' => 'Tersedia'],
-                ['status' => 'Dipinjam'],
-                ['status' => 'Rusak'],
-                ['status' => 'Hilang'],
-                ['status' => 'Tidak Dapat Dipinjam'],
-                ['status' => 'Diperbaiki'],
-                ['status' => 'Perawatan']
+            ['status' => 'Tersedia'],
+            ['status' => 'Dipinjam'],
+            ['status' => 'Rusak'],
+            ['status' => 'Hilang'],
+            ['status' => 'Tidak Dapat Dipinjam'],
+            ['status' => 'Diperbaiki'],
+            ['status' => 'Perawatan']
             ];
             @endphp
 

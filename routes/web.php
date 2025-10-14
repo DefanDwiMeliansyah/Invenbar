@@ -4,9 +4,9 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\KategoriController;
-use App\Http\Controllers\LokasiController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LokasiController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -25,10 +25,12 @@ Route::middleware('auth')->group(function () {
     Route::resource('kategori', KategoriController::class);
     Route::resource('lokasi', LokasiController::class);
     
-    // Route Barang
-    Route::get('/barang/laporan', [BarangController::class, 'cetaklaporan'])->name('barang.laporan');
-    Route::delete('/barang/group/{prefix}', [BarangController::class, 'destroyGroup'])->name('barang.destroy-group');
-    Route::resource('barang', BarangController::class);
+    // Route Barang - dengan middleware lokasi
+    Route::middleware('check.lokasi')->group(function () {
+        Route::get('/barang/laporan', [BarangController::class, 'cetaklaporan'])->name('barang.laporan');
+        Route::delete('/barang/group/{prefix}', [BarangController::class, 'destroyGroup'])->name('barang.destroy-group');
+        Route::resource('barang', BarangController::class);
+    });
 });
 
 require __DIR__ . '/auth.php';

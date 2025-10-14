@@ -5,6 +5,7 @@
             <th>Kode</th>
             <th>Nama Barang</th>
             <th>Kategori</th>
+            <th>Sumber</th>
             <th>Lokasi</th>
             <th>Jumlah</th>
             <th>Kondisi</th>
@@ -67,6 +68,7 @@
             </td>
             <td>{{ $barang->nama_barang }}</td>
             <td>{{ $barang->kategori->nama_kategori }}</td>
+            <td>{{ $barang->sumber }}</td>
             <td>{{ $barang->lokasi->nama_lokasi }}</td>
             <td>
                 @if($isPerUnit && count($relatedUnits) > 1)
@@ -101,11 +103,8 @@
                 <x-tombol-aksi href="{{ route('barang.edit', $barang->id) }}" type="edit" />
                 @endcan
 
-                @can('delete barang')
                 <x-tombol-aksi href="{{ route('barang.destroy', $barang->id) }}" type="delete" />
-                @endcan
                 </div>
-                @can('delete barang')
                 <form action="{{ route('barang.destroy-group', $prefix) }}"
                     method="POST"
                     class="d-inline"
@@ -116,16 +115,13 @@
                         <i class="bi bi-trash"></i> Hapus Semua
                     </button>
                 </form>
-                @endcan
                 @else
                 @can('manage barang')
                 <x-tombol-aksi href="{{ route('barang.show', $barang->id) }}" type="show" />
                 <x-tombol-aksi href="{{ route('barang.edit', $barang->id) }}" type="edit" />
                 @endcan
 
-                @can('delete barang')
                 <x-tombol-aksi href="{{ route('barang.destroy', $barang->id) }}" type="delete" />
-                @endcan
                 @endif
             </td>
         </tr>
@@ -144,6 +140,7 @@
             </td>
             <td>{{ $unit->nama_barang }}</td>
             <td>{{ $unit->kategori->nama_kategori }}</td>
+            <td>{{ $barang->sumber }}</td>
             <td>{{ $unit->lokasi->nama_lokasi }}</td>
             <td>{{ $unit->jumlah }} {{ $unit->satuan }}</td>
             <td>
@@ -167,9 +164,7 @@
                 <x-tombol-aksi href="{{ route('barang.edit', $unit->id) }}" type="edit" />
                 @endcan
 
-                @can('delete barang')
                 <x-tombol-aksi href="{{ route('barang.destroy', $unit->id) }}" type="delete" />
-                @endcan
             </td>
         </tr>
         @endif

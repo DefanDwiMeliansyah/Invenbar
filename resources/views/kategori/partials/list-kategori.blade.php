@@ -3,9 +3,7 @@
         <tr>
             <th>#</th>
             <th>Nama Kategori</th>
-            @can('manage kategori')
-                <th>&nbsp;</th>
-            @endcan
+            <th>&nbsp;</th>
         </tr>
     </x-slot>
     
@@ -14,18 +12,16 @@
             <td>{{ $kategoris->firstItem() + $index }}</td>
             <td>{{ $kategori->nama_kategori }}</td>
             
-            @can('manage kategori')
-                <td>
-                    <x-tombol-aksi :href="route('kategori.edit', $kategori->id)" type="edit" />
-                    <x-tombol-aksi :href="route('kategori.destroy', $kategori->id)" type="delete" />
-                </td>
-            @endcan
+            <td>
+                <x-tombol-aksi :href="route('kategori.edit', $kategori->id)" type="edit" />
+                <x-tombol-aksi :href="route('kategori.destroy', $kategori->id)" type="delete" />
+            </td>
         </tr>
     @empty
         <tr>
             <td colspan="3" class="text-center">
                 <div class="alert alert-danger">
-                    Data user belum tersedia.
+                    Data kategori belum tersedia.
                 </div>
             </td>
         </tr>

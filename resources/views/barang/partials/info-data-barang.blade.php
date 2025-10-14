@@ -10,6 +10,10 @@
             <td>{{ $barang->kategori->nama_kategori }}</td>
         </tr>
         <tr>
+            <th>Sumber</th>
+            <td>{{ $barang->sumber }}</td>
+        </tr>
+        <tr>
             <th>Lokasi</th>
             <td>{{ $barang->lokasi->nama_lokasi }}</td>
         </tr>
