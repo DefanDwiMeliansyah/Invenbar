@@ -20,6 +20,7 @@
                 ['route' => 'dashboard', 'name' => 'Dashboard'],
                 ['route' => 'barang.index', 'name' => 'Barang'],
                 ['route' => 'kategori.index', 'name' => 'Kategori'],
+                ['route' => 'peminjaman.index', 'name' => 'Peminjaman'],
                 ['route' => 'lokasi.index', 'name' => 'Lokasi', 'role' => 'admin'],
                 ['route' => 'user.index', 'name' => 'User', 'role' => 'admin'],
                 ];

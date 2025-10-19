@@ -34,6 +34,7 @@
             {{ $slot }}
         </main>
     </div>
+    
     <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script>
         let myModalEl = document.querySelector('[data-modal="1"]');
@@ -42,6 +43,7 @@
             myModal.show();
         }
     </script>
+    @stack('scripts')
 </body>
 
 </html>

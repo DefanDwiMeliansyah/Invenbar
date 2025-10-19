@@ -7,13 +7,14 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\LokasiController;
+use App\Http\Controllers\PeminjamanController;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
-->middleware(['auth', 'verified'])->name('dashboard');
+    ->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -24,12 +25,25 @@ Route::middleware('auth')->group(function () {
     Route::resource('user', UserController::class);
     Route::resource('kategori', KategoriController::class);
     Route::resource('lokasi', LokasiController::class);
-    
+
     // Route Barang - dengan middleware lokasi
     Route::middleware('check.lokasi')->group(function () {
         Route::get('/barang/laporan', [BarangController::class, 'cetaklaporan'])->name('barang.laporan');
         Route::delete('/barang/group/{prefix}', [BarangController::class, 'destroyGroup'])->name('barang.destroy-group');
         Route::resource('barang', BarangController::class);
+    });
+
+    // Route Peminjaman
+    Route::middleware('check.lokasi')->group(function () {
+        Route::get('/peminjaman/barang-tersedia', [PeminjamanController::class, 'getAvailableBarang'])
+            ->name('peminjaman.barang-tersedia');
+        Route::patch('/peminjaman/{peminjaman}/return', [PeminjamanController::class, 'return'])
+            ->name('peminjaman.return');
+        Route::resource('peminjaman', PeminjamanController::class);
+        Route::get('peminjaman-laporan/form', [PeminjamanController::class, 'laporanForm'])
+            ->name('peminjaman.laporan-form');
+        Route::get('peminjaman-laporan/cetak', [PeminjamanController::class, 'cetakLaporan'])
+            ->name('peminjaman.cetak-laporan');
     });
 });
 

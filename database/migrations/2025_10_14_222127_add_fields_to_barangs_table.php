@@ -12,6 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('barangs', function (Blueprint $table) {
+            $table->enum('mode_input', ['Masal', 'Per Unit'])->default('Masal')->after('lokasi_id');
             $table->enum('status', [
                 'Tersedia',
                 'Dipinjam',
@@ -19,8 +20,10 @@ return new class extends Migration
                 'Hilang',
                 'Tidak Dapat Dipinjam',
                 'Diperbaiki',
-                'Perawatan'
-            ])->default('Tersedia')->after('mode_input');
+                'Perawatan',
+                'Habis'
+            ])->default('Tersedia')->after('kondisi');
+            $table->boolean('dapat_dikembalikan')->default(true)->after('mode_input');
         });
     }
 
@@ -30,7 +33,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('barangs', function (Blueprint $table) {
-            $table->dropColumn('status');
+            $table->dropColumn(['mode_input', 'status', 'dapat_dikembalikan']);
         });
     }
 };

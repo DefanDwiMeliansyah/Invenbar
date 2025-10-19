@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -11,9 +12,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('barangs', function (Blueprint $table) {
-            $table->enum('mode_input', ['Masal', 'Per Unit'])->default('Masal')->after('gambar');
-        });
+        // Update semua data barang yang belum punya status
+        DB::table('barangs')
+            ->whereNull('status')
+            ->orWhere('status', '')
+            ->update(['status' => 'Tersedia']);
     }
 
     /**
@@ -21,8 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('barangs', function (Blueprint $table) {
-            $table->dropColumn('mode_input');
-        });
+        // No need to reverse
     }
 };
