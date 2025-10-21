@@ -77,7 +77,7 @@ class BarangController extends Controller implements HasMiddleware
         }
 
         $barang = new Barang();
-        
+
 
         return view('barang.create', compact('barang', 'kategori', 'lokasi'));
     }
@@ -283,15 +283,27 @@ class BarangController extends Controller implements HasMiddleware
     {
         $user = Auth::user();
 
-        // Petugas hanya bisa hapus barang di lokasinya
+        // 🔹 Petugas hanya bisa hapus barang di lokasinya sendiri
         if ($user->isPetugas() && $barang->lokasi_id != $user->lokasi_id) {
             abort(403, 'Anda tidak memiliki akses ke barang ini.');
         }
 
+        // 🔹 Cek apakah barang masih punya peminjaman aktif
+        if ($barang->peminjamanDetails()->exists()) {
+            return redirect()->back()->with('error', 'Barang ini masih memiliki data peminjaman dan tidak dapat dihapus.');
+        }
+
+        // 🔹 Cek apakah barang masih punya riwayat perbaikan/pemeliharaan
+        if ($barang->perbaikanPemeliharaans()->exists()) {
+            return redirect()->back()->with('error', 'Barang ini masih memiliki data perbaikan atau pemeliharaan dan tidak dapat dihapus.');
+        }
+
+        // 🔹 Hapus file gambar jika ada
         if ($barang->gambar) {
             Storage::disk('gambar-barang')->delete($barang->gambar);
         }
 
+        // 🔹 Hapus data barang
         $barang->delete();
 
         return redirect()->route('barang.index')->with('success', 'Data barang berhasil dihapus.');

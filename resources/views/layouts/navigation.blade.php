@@ -21,6 +21,7 @@
                 ['route' => 'barang.index', 'name' => 'Barang'],
                 ['route' => 'kategori.index', 'name' => 'Kategori'],
                 ['route' => 'peminjaman.index', 'name' => 'Peminjaman'],
+                ['route' => 'perbaikan-pemeliharaan.index', 'name' => 'Perbaikan & Pemeliharaan'],
                 ['route' => 'lokasi.index', 'name' => 'Lokasi', 'role' => 'admin'],
                 ['route' => 'user.index', 'name' => 'User', 'role' => 'admin'],
                 ];

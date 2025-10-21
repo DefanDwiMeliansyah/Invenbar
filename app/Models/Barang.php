@@ -19,7 +19,7 @@ class Barang extends Model
      */
     public function getStatusBadgeClass(): string
     {
-        return match($this->status) {
+        return match ($this->status) {
             'Tersedia' => 'bg-success',
             'Dipinjam' => 'bg-primary',
             'Rusak' => 'bg-danger',
@@ -40,7 +40,7 @@ class Barang extends Model
         if ($this->mode_input === 'Per Unit') {
             return $this->status === 'Tersedia';
         }
-        
+
         // Masal
         return $this->jumlah > 0 && $this->status !== 'Habis';
     }
@@ -52,7 +52,7 @@ class Barang extends Model
 
     public function lokasi(): BelongsTo
     {
-         return $this->belongsTo(Lokasi::class, 'lokasi_id');
+        return $this->belongsTo(Lokasi::class, 'lokasi_id');
     }
 
     /**
@@ -61,6 +61,33 @@ class Barang extends Model
     public function peminjamanDetails(): HasMany
     {
         return $this->hasMany(PeminjamanDetail::class, 'barang_id');
+    }
+
+    /**
+     * Get perbaikan pemeliharaan
+     */
+    public function perbaikanPemeliharaans(): HasMany
+    {
+        return $this->hasMany(PerbaikanPemeliharaan::class, 'barang_id');
+    }
+
+    /**
+     * Check if barang sedang dalam perbaikan/perawatan
+     */
+    public function isUnderMaintenance(): bool
+    {
+        return in_array($this->status, ['Diperbaiki', 'Perawatan']);
+    }
+
+    /**
+     * Get active perbaikan/pemeliharaan
+     */
+    public function getActivePerbaikan()
+    {
+        return $this->perbaikanPemeliharaans()
+            ->whereIn('status', ['Diajukan', 'Disetujui', 'Dalam Perbaikan'])
+            ->latest()
+            ->first();
     }
 
     /**
